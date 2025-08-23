@@ -1,0 +1,16 @@
+mod.name=Auto Sun Position
+mod.desc=Auto-rotate sun azimuth to avoid backlighting. Slider + auto follow.
+settings.safe=Safe apply to avoid conflicts
+settings.safe.tip=Re-apply sun rotation at end of frame to avoid other mods overriding it.
+settings.th=Backlight threshold (degree)
+settings.th.tip=Angle margin to treat as backlit(1-180 deg.). Larger = move earlier (Recommended: 60deg.).
+settings.offset=Sun azimuth offset
+settings.offset.tip=Rotate target by this angle (-90-90 deg.). Positive = clockwise.
+settings.smooth=Tween duration (sec)
+settings.smooth.tip=Time to smoothly move azimuth to the target.
+settings.interval=Auto-check interval (sec)
+settings.interval.tip=Frequency of backlight checks. Shorter = quicker follow, slightly more load.
+panel.title=Auto Sun
+panel.long=Longitude (degree)
+panel.autofollow=Auto follow (rotate on backlight)
+panel.on=ON

@@ -1,0 +1,16 @@
+mod.name=Auto Sun Position
+mod.desc=逆光なら太陽の経度を自動調整する。スライダー＋自動追従。
+settings.safe=競合セーフ
+settings.safe.tip=緯度・経度を変更する他MODによる上書きを防止します。併用時に推奨。
+settings.th=逆光しきい値（°）
+settings.th.tip=逆光とみなす角度の許容幅（1～180°）。大きいほど早めに回ります（60°目安）。
+settings.offset=オフセット
+settings.offset.tip=自動追従時のターゲット角度のオフセット（1～180°））。常に斜めから光を当てたい場合に設定します。
+settings.smooth=スムーズ移動時間（秒）
+settings.smooth.tip=目標の経度へ滑らかに移動させる時間です。
+settings.interval=自動判定の間隔（秒）
+settings.interval.tip=逆光かどうかのチェック頻度。短いほど素早く追従しますが負荷は少し増えます。
+panel.title=Auto Sun Position
+panel.long=経度 (°)
+panel.autofollow=自動追従
+panel.on=ON
