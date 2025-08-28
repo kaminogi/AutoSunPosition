@@ -1,4 +1,4 @@
-﻿// mod.cs - Auto Sun Position (Theme Mixer 2.5 & Play It セーフ / EndOfFrame パッチ内蔵)
+﻿// mod.cs - Auto Sun Positionメインコード
 using System;
 using System.Reflection;
 using ColossalFramework;
@@ -14,8 +14,6 @@ namespace AutoSunPosition
     {
         public string Name => I18n.T("mod.name", "Auto Sun Position");
         public string Description => I18n.T("mod.desc", "Auto-rotate sun azimuth to avoid backlighting.");
-
-
 
         private const string SettingsFile = "AutoSunPositionSettings";
         internal static readonly SavedBool SavedManageLongitude =new SavedBool("ManageLongitude", SettingsFile, true, true);
@@ -224,7 +222,7 @@ namespace AutoSunPosition
             }
         }
 
-        // modのパス取得
+        // modのパス取得（アイコン画像のパックに使う）
         private static string GetModRootPath()
         {
             try
@@ -262,9 +260,10 @@ namespace AutoSunPosition
             }
             catch { }
 
-            return null; // 最終手段：呼び出し側で null チェック
+            return null;
         }
 
+        // アイコン画像をボタンにする
         private void CreateToggleButton() {
             var view = UIView.GetAView();
             _toggleBtn = (UIButton)view.AddUIComponent(typeof(UIButton));
@@ -274,7 +273,6 @@ namespace AutoSunPosition
             _toggleBtn.tooltip = I18n.T("panel.toggle.tip", "Toggle Auto Sun UI");
 
 
-            // ここは CreateToggleButton() の try ブロック内（パス組み立て部分を置き換え）
             string modRoot = GetModRootPath();
             if (string.IsNullOrEmpty(modRoot))
                 throw new System.Exception("modRoot not found");
@@ -329,6 +327,8 @@ namespace AutoSunPosition
                 Mod.SavedButtonY.value = _toggleBtn.relativePosition.y;
             };
         }
+
+        // アイコン画像のボタンをアトラス化しておく（hover時のアイコンを別画像にするとメモリを圧迫する）
         internal static class IconAtlasLoader
         {
             // files[]: pngのフルパス。null可（無い場合は飛ばす）
@@ -453,7 +453,7 @@ namespace AutoSunPosition
             }
         }
 
-        // 置き換え後：水平判定版（前方キープ寄り）
+        // 自動追従のメインロジック
         private void TryAutoFollow()
         {
             var cam = CurrentCamera;
@@ -491,6 +491,7 @@ namespace AutoSunPosition
 
         #region Sun helpers
 
+        // 太陽光のオブジェクトを探す
         private void FindSunLight()
         {
             var byName = GameObject.Find("Sun") ?? GameObject.Find("Directional Light");
@@ -535,6 +536,7 @@ namespace AutoSunPosition
             return deg;
         }
 
+        //太陽光の位置と経度を設定して反映（ずれているかも）
         private void SetSunAzimuth(float azimuthDeg, bool pushToBridges, bool updateSlider, bool save)
         {
             if (_sun == null) return;
@@ -585,9 +587,9 @@ namespace AutoSunPosition
 
         #region UI
 
+
         private void BuildUI()
         {
-
 
             var view = UIView.GetAView();
             _panel = (UIPanel)view.AddUIComponent(typeof(UIPanel));
